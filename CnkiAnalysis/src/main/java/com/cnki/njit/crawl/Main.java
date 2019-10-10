@@ -3,6 +3,7 @@ package com.cnki.njit.crawl;
 
 
 import com.cnki.njit.crawl.Entity.Paper;
+import com.cnki.njit.crawl.Entity.PaperImp1;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -15,23 +16,35 @@ import java.util.List;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 
         String path = "http://yuanjian.cnki.net/Search/ListResult";
         String code = null;
         Connection connection = Jsoup.connect(path);
         connection.data("Content","南京");
         connection.data("Page","100");
-        Document document  = connection.post();
+        Document document  = null;
+        try {
+            document = connection.post();
+        } catch (IOException e) {
+
+
+        }
+
         //System.out.println(document.toString());
         Elements elements = document.getElementsByClass("list-item");
-  //      System.out.println(elements.get(0).toString());
+        System.out.println(elements.get(0).toString());
         Element element =  elements.get(0);
 ////       String title =  element.getElementsByClass("tit clearfix").get(0).select("a").text();
 //               String papertitle =  element.select("a").first().text();
 //               String about = element.getElementsByClass("nr").text();
 //               String key  = element.getElementsByClass("info").get(0).select("p").get(0).text().replace("关键词：","");
 //        String yinyongxiazai  = element.getElementsByClass("info").get(0).select("p").get(1).text();
+        String moreinf = element.select("a").first().attr("href");
+        //System.out.println(element.getElementsByClass("info").get(0).toString());
+        String authormore = element.getElementsByClass("source").get(0).select("p").get(0).select("a").first().attr("href");
+//        System.out.println(authormore);
+//        System.out.println(moreinf);
 //        String author  = element.getElementsByClass("source").text();
 //        System.out.println(author);
 //
@@ -61,11 +74,13 @@ public class Main {
         Connection connection = Jsoup.connect(url);
         connection.data("Content",content);
         connection.data("Page",page);
+
         try {
             Document document = connection.post();
             return document;
         } catch (IOException e) {
             e.printStackTrace();
+
         }
         return null;
     }
@@ -92,8 +107,12 @@ public class Main {
         String key  = element.getElementsByClass("info").get(0).select("p").get(0).text().replace("关键词：","");
         String yinyongxiazai  = element.getElementsByClass("info").get(0).select("p").get(1).text();
         String author  = element.getElementsByClass("source").text();
+        String moreinf = element.select("a").first().attr("href");
+        String authormore = element.getElementsByClass("source").get(0).select("p").get(0).select("a").first().attr("href");
 
-       Paper paper = new Paper();
+
+
+        PaperImp1 paper = new PaperImp1();
        paper.setAbout(about);
        paper.setAuthorinformation(author);
        paper.setKey(key);
@@ -101,6 +120,9 @@ public class Main {
        int dar[] = getDownRef(yinyongxiazai);
        paper.setDownload(dar[0]);
        paper.setRef(dar[1]);
+       paper.setAuthorinf(authormore);
+       paper.setMoreinfurl(moreinf);
+
        return paper;
 
     }

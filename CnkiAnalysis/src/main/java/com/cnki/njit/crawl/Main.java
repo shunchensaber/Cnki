@@ -21,8 +21,8 @@ public class Main {
         String path = "http://yuanjian.cnki.net/Search/ListResult";
         String code = null;
         Connection connection = Jsoup.connect(path);
-        connection.data("Content","南京");
-        connection.data("Page","100");
+        connection.data("Content","论中国新时期文学的西方接受");
+        connection.data("Page","0");
         Document document  = null;
         try {
             document = connection.post();
@@ -43,8 +43,7 @@ public class Main {
         String moreinf = element.select("a").first().attr("href");
         //System.out.println(element.getElementsByClass("info").get(0).toString());
         String authormore = element.getElementsByClass("source").get(0).select("p").get(0).select("a").first().attr("href");
-//        System.out.println(authormore);
-//        System.out.println(moreinf);
+//       System.out.println(moreinf);
 //        String author  = element.getElementsByClass("source").text();
 //        System.out.println(author);
 //
@@ -58,7 +57,7 @@ public class Main {
         System.out.println(elements.size());
         for(Paper re:toPaper(elements))
         {
-            System.out.println(re);
+            System.out.println();
         }
     }
 

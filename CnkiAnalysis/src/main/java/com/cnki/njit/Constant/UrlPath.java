@@ -1,4 +1,4 @@
-package com.cnki.njit.crawl.Constant;
+package com.cnki.njit.Constant;
 
 public class UrlPath {
     public static final String Home = "Cnki";

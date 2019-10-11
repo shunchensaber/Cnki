@@ -1,4 +1,4 @@
-package com.cnki.njit.crawl.Constant;
+package com.cnki.njit.Constant;
 
 public enum ResponseResultCode {
     SUCCESS(200), //成功

@@ -1,0 +1,450 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>index - 中国知网文献数据分析 </title>
+    <link href="../css/tipso.min.css" rel="stylesheet">
+    <!-- Bootstrap -->
+    <link href="../css/plugins/toastr/toastr.min.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="../css/style.min.css?v=4.0.0" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/queries.css">
+    <link href='../css/horsey/jquery-ui.css' rel='stylesheet' type='text/css' />
+
+</head>
+
+<link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<style type="text/css">
+    td{vertical-align:middle }
+    #loading{
+        width:40%;
+        margin:auto;
+        text-align:center;
+    }
+</style>
+</head>
+<body>
+<header class="clearfix" style="
+		    position:  fixed;
+		    width: 100%;
+		    z-index: 9999;">
+    <div class="logo col-md-3"><h2 class="logo-text"><i class="fa fa-area-chart"></i>数据可视化分析</h2></div>
+    <nav class="clearfix">
+        <ul class="clearfix">
+            <li><a href="#" class="active">首页</a></li>
+            <!--    <li><a href="index3">历史查询</a></li> -->
+            <li><a href="page/ref">高被引数据</a></li>
+            <!--  <li><a href="#" class="last">关于我们</a></li> -->
+        </ul>
+    </nav>
+    <div class="pullcontainer">
+        <a href="#" id="pull"><i class="fa fa-bars fa-2x"></i></a>
+    </div>
+
+
+    <div class="search">
+        <svg class="search-svg" viewBox="0 0 320 70"
+             data-init="M160,3 L160,3 a27,27 0 0,1 0,54 L160,57 a27,27 0 0,1 0,-54 M197,67 181.21,51.21"
+             data-mid="M160,3 L160,3 a27,27 0 0,1 0,54 L160,57 a27,27 0 0,1 0,-54 M179.5,49.5 179.5,49.5"
+             data-active="M27,3 L293,3 a27,27 0 0,1 0,54 L27,57 a27,27 0 0,1 0,-54 M179.5,49.5 179.5,49.5">
+            <path class="search-svg__path" d="M160,3 L160,3 a27,27 0 0,1 0,54 L160,57 a27,27 0 0,1 0,-54 M197,67 181.21,51.21" />
+        </svg>
+        <input type="text" class="search-input" />
+        <div class="search-close"></div>
+
+    </div>
+    <a id="login" data-toggle="modal" class="btn btn-primary"
+       style="  float: right;
+				    margin-top: 18px;
+				    margin-right: 20px;"
+       href="#modal-form">登录</a>
+    <a id="after_login" style="width:5%;
+          	 height:5%;
+          	 float:right;
+          	 padding-top:25px;
+          	 display:none" data-toggle="dropdown">
+        <i class="fa fa-sign-out"></i>
+    </a>
+
+    <ul style="left:90%"class="dropdown-menu" role="menu">
+        <li>
+            <a id="history">历史记录</a>
+        </li>
+        <li>
+            <a id="logout">注销</a>
+        </li>
+    </ul>
+</header>
+
+<div style="padding-top:40px"></div>
+<div id="top" style="background-image: url('/img/up.png');
+	 	 display: none;
+	 	 height:100px;
+	 	 width:100px;
+		 position: fixed;
+		 left:93%;
+		 z-index:1;
+		 bottom: 20px;"></div>
+<div class="banner">
+    <ul>
+        <li style="background-image: url('img/02.jpg');">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3">
+                        <div class="hero-title">
+                            输入想搜索的文献关键词
+                        </div>
+                        <input class="hero-content" name="topSearch" id ="topSearch" value=""
+                               autocomplete="off"
+                               style="width:500px"/>
+                        <a class="hero-btn" >SEARCH IT!</a>
+                    </div>
+                </div>
+            </div>
+        </li>
+
+    </ul>
+</div>
+
+
+<div class="container">
+    <div class="arrow"></div>
+</div>
+
+<div  style="width:100%;height:85px"></div>
+
+<div class="container" style="width:92%">
+
+    <!-- 被引表格  -->
+    <div class="col-md-12">
+        <!-- 选项卡 -->
+        <div class="tabs-container">
+            <ul id="ref-tab" class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#tab-auth" aria-expanded="true">高被引作者</a>
+                </li>
+                <li class=""><a data-toggle="tab" href="#tab-qikn" aria-expanded="false">高被引期刊</a>
+                </li>
+                <li><a data-toggle="tab" href="#tab-nuiv" aria-expanded="false">高被引院校</a>
+                </li>
+                <li><a data-toggle="tab" href="#tab-hosp" aria-expanded="false">高被引医院</a>
+                </li>
+                <li><a data-toggle="tab" href="#tab-docu" aria-expanded="false">高被引文献</a>
+                </li>
+                <li><a data-toggle="tab" href="#tab-ztcs" aria-expanded="false">高被引学科</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <!-- 期刊 begin -->
+                <div id="tab-auth" class="tab-pane active">
+                    <div class="panel-body">
+                        <table
+                                class="table table-striped table-bordered table-hover dataTables-example dataTable">
+                            <thead>
+                            <tr>
+                                <th class="nosort" style="width :20%">作者</th>
+                                <th class="nosort" style="width :10%">选择学科</th>
+                                <th align="right" style="width :9%">发文量</th>
+                                <th align="right" style="width :12%"
+                                    data-tipso="核心期刊收录文献量"
+                                >核心期刊</th>
+                                <th align="right" style="width :7%"
+                                    data-tipso="SCI(科学引文索引)收录文献量"
+                                >SCI</th>
+                                <th align="right" style="width :4%"
+                                    data-tipso="EI(工程索引)收录文献量"
+                                >EI</th>
+                                <th align="right" style="width :12%">基金文献</th>
+                                <th align="right" style="width :6%"
+                                    data-tipso="该作者所发表的文献被其它文献引用次数"
+                                >被引</th>
+                                <th align="right" style="width :6%"
+                                    data-tipso="文献被除作者及合作者以外其他人的引用次数"
+                                >他引</th>
+                                <th align="right" style="width :8%"
+                                    data-tipso="他引率又叫他引总引比，指某期刊的总被引频次中，被其他期刊引用次数所占的比例。"
+                                >他引率</th>
+                                <th align="right" style="width :7%"
+                                    data-tipso="H指数是一种评价学术成就的方法,能够比较准确地反映一个人的学术成就.一个人的h指数越高，则表明他的论文影响力越大"
+                                >H指数</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+                <!-- 作者 End -->
+                <!-- 期刊 begin -->
+                <div id="tab-qikn" class="tab-pane">
+                    <div class="panel-body">
+                        <table class="table table-striped table-bordered table-hover dataTables-example dataTable">
+                            <thead>
+                            <tr>
+                                <th class="nosort" style="width :">期刊名称</th>
+                                <th class="nosort" style="width :22%">学科</th>
+                                <th align="right" style="width :10%">发文量</th>
+                                <th align="right" style="width :10%"
+                                    data-tipso="该作者所发表的文献被其它文献引用次数"
+                                >被引频次</th>
+                                <th align="right" style="width :10%"
+                                    data-tipso="文献被除作者及合作者以外其他人的引用次数"
+                                >他引频次</th>
+                                <th align="right" style="width :10%"
+                                    data-tipso="他引率又叫他引总引比，指某期刊的总被引频次中，被其他期刊引用次数所占的比例。"
+                                >他引率</th>
+                                <th align="right" style="width :10%"
+                                    data-tipso="H指数是一种评价学术成就的方法,能够比较准确地反映一个人的学术成就.一个人的h指数越高，则表明他的论文影响力越大"
+                                >H指数</th>
+                            </tr>
+                            </thead>
+                        </table>
+
+                    </div>
+                </div>
+                <!-- 期刊 End -->
+                <!-- 院校 begin -->
+                <div id="tab-nuiv" class="tab-pane">
+                    <div class="panel-body">
+                        <table
+                                class="table table-striped table-bordered table-hover dataTables-example dataTable">
+                            <thead>
+                            <tr>
+                                <th class="nosort" style="width :">院校名称</th>
+                                <th class="nosort" style="width :20%">选择学科</th>
+                                <th align="right" style="width :7%">发文量</th>
+                                <th align="right" style="width :8%"
+                                    data-tipso="核心期刊收录文献量"
+                                >核心期刊</th>
+                                <th align="right" style="width :6%"
+                                    data-tipso="SCI(科学引文索引)收录文献量"
+                                >SCI</th>
+                                <th align="right" style="width :4%"
+                                    data-tipso="EI(工程索引)收录文献量"
+                                >EI</th>
+                                <th align="right" style="width :6%"
+                                    data-tipso="该作者所发表的文献被其它文献引用次数"
+                                >被引频次</th>
+                                <th align="right" style="width :9%"
+                                    data-tipso="文献被除作者及合作者以外其他人的引用次数"
+                                >他引频次</th>
+                                <th align="right" style="width :9%"
+                                    data-tipso="他引率又叫他引总引比，指某期刊的总被引频次中，被其他期刊引用次数所占的比例。"
+                                >他引率</th>
+                                <th align="right" style="width :7%"
+                                    data-tipso="H指数是一种评价学术成就的方法,能够比较准确地反映一个人的学术成就.一个人的h指数越高，则表明他的论文影响力越大"
+                                >H指数</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+                <!-- 院校 End -->
+                <!-- 医院 begin -->
+                <div id="tab-hosp" class="tab-pane">
+                    <div class="panel-body">
+                        <table
+                                class="table table-striped table-bordered table-hover dataTables-example dataTable">
+                            <thead>
+                            <tr>
+                                <th class="nosort" style="width :">医院名称</th>
+                                <th class="nosort" style="width :20%">选择学科</th>
+                                <th align="right" style="width :7%">发文量</th>
+                                <th align="right" style="width :8%"
+                                    data-tipso="核心期刊收录文献量"
+                                >核心期刊</th>
+                                <th align="right" style="width :6%"
+                                    data-tipso="SCI(科学引文索引)收录文献量"
+                                >SCI</th>
+                                <th align="right" style="width :4%"
+                                    data-tipso="EI(工程索引)收录文献量"
+                                >EI</th>
+                                <th align="right" style="width :6%"
+                                    data-tipso="该作者所发表的文献被其它文献引用次数"
+                                >被引频次</th>
+                                <th align="right" style="width :9%"
+                                    data-tipso="文献被除作者及合作者以外其他人的引用次数"
+                                >他引频次</th>
+                                <th align="right" style="width :9%"
+                                    data-tipso="他引率又叫他引总引比，指某期刊的总被引频次中，被其他期刊引用次数所占的比例。"
+                                >他引率</th>
+                                <th align="right" style="width :7%"
+                                    data-tipso="H指数是一种评价学术成就的方法,能够比较准确地反映一个人的学术成就.一个人的h指数越高，则表明他的论文影响力越大"
+                                >H指数</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 医院 End -->
+                <!-- 高被引文献 begin -->
+                <div id="tab-docu" class="tab-pane">
+                    <div class="panel-body">
+                        <table
+                                class="table table-striped table-bordered table-hover dataTables-example dataTable">
+                            <thead>
+                            <tr>
+                                <th class="nosort"  style="width :">被引文献题名</th>
+                                <th class="nosort" style="width :15%">选择学科</th>
+                                <th align="right" style="width :12%">被引文献作者</th>
+                                <th align="right" style="width :12%">被引文献来源</th>
+                                <th align="right" style="width :12%"
+                                    data-tipso="该作者所发表的文献被其它文献引用次数"
+                                >被引频次</th>
+                                <th align="right" style="width :12%"
+                                    data-tipso="文献被除作者及合作者以外其他人的引用次数"
+                                >他引频次</th>
+                                <th align="right" style="width :12%"
+                                    data-tipso="他引率又叫他引总引比，指某期刊的总被引频次中，被其他期刊引用次数所占的比例。"
+                                >他引率</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+                <!-- 高被引文献 End -->
+                <!-- 高被引学科 begin -->
+                <div id="tab-ztcs" class="tab-pane">
+                    <div class="panel-body">
+                        <table
+                                class="table table-striped table-bordered table-hover dataTables-example dataTable">
+                            <thead>
+                            <tr>
+                                <th  class="nosort" style="width :">学科名称</th>
+                                <th style="width :15%">发文量</th>
+                                <th align="right" style="width: 6%"
+                                    data-tipso="该作者所发表的文献被其它文献引用次数">被引频次</th>
+                                <th align="right" style="width :9%"
+                                    data-tipso="文献被除作者及合作者以外其他人的引用次数"
+                                >他引频次</th>
+                                <th align="right" style="width :9%"
+                                    data-tipso="他引率又叫他引总引比，指某期刊的总被引频次中，被其他期刊引用次数所占的比例。"
+                                >他引率</th>
+                                <th align="right" style="width :12%"
+                                    data-tipso="H指数是一种评价学术成就的方法,能够比较准确地反映一个人的学术成就.一个人的h指数越高，则表明他的论文影响力越大"
+                                >H指数</th>
+                            </tr>
+                            </thead>
+                        </table>
+
+                    </div>
+
+                </div>
+                <!-- 高被引学科 End -->
+            </div>
+            <div  style="width:100%;height:50px"></div>
+            <a id="more" href="page/ref" style="float:right" >>>>更多</a>
+            <div id="loading"><img src="img/gif/loading.gif"></div>
+            <div  style="width:100%;height:50px"></div>
+        </div>
+    </div>
+</div>
+
+<div class="shadow"></div>
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+                <h2>INFUSION</h2>
+            </div>
+            <div class="col-md-5">
+                <p>Nam mi enim, auctor non ultricies a, fringilla eu risus. Praesent vitae lorem et elit tincidunt accumsan suscipit eu libero. Maecenas diam est, venenatis vitae dui in, vestibulum mollis arcu. Donec eu nibh tincidunt, dapibus sem eu, aliquam dolor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum consectetur commodo eros, vitae laoreet lectus aliq</p>
+            </div>
+            <div class="col-md-3">
+                <p>aliquam dolor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum consectetur commodo eros, vitae laoreet lectus aliq</p>
+            </div>
+            <div class="col-md-2">
+                <ul class="footer-links">
+                    <li><a href="#">List One</a></li>
+                    <li><a href="#">Page Two</a></li>
+                    <li><a href="#">Design</a></li>
+                    <li><a href="#">Work</a></li>
+                    <li><a href="#">Contact Me</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<div id="modal-form" class="modal fade" aria-hidden="true" style="display: none;
+    		position:absolute;
+    		top:25%;
+    		left:50%;
+    		transform: translateX(-50%) translateY(-50%);">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-6 b-r">
+                        <h3 class="m-t-none m-b">登录</h3>
+
+                        <p>欢迎登录本站(⊙o⊙)</p>
+
+                        <form role="form">
+                            <div class="form-group">
+                                <label>用户名：</label>
+                                <input id="username" type="text" placeholder="请输入用户名" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>密码：</label>
+                                <input id="password"type="password" placeholder="请输入密码" class="form-control">
+                            </div>
+                            <div>
+                                <button id="login_button" class="btn btn-sm btn-primary pull-right m-t-n-xs" type="button"><strong>登录</strong>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-sm-6">
+                        <h4>还不是会员？</h4>
+                        <p>您可以注册一个账户</p>
+                        <p class="text-center">
+                            <a href="page/register"><i class="fa fa-sign-in big-icon"></i></a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="../js/jquery-1.10.2.min.js"></script>
+<script src="../js/plugins/layer/layer.js"></script>
+<script src="../js/plugins/toastr/toastr.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/scripts.js"></script>
+<script src="../js/unslider.min.js"></script>
+<script src="../js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="../js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="../js/hplus.min.js?v=4.0.0"></script>
+<script src="../js/contabs.min.js"></script>
+<script src="../js/plugins/pace/pace.min.js"></script>
+<script src="../js/echarts/echarts.js"></script>
+
+<!-- tipso -->
+<script src="../js/plugins/tooltip/tipso.min.js"></script>
+<!-- dataTables -->
+<script src="../js/plugins/dataTables/jquery.dataTables.min.js"></script>
+
+<script src="../js/horsey/jquery-ui.min.js"></script>
+<!-- 处理逻辑 -->
+<%-- <script src="../js/index/get_school_distribute.js"></script> --%>
+<script src="../js/index/index_operate.js"></script>
+<script src="../js/index/get_ref_data.js"></script>
+<script src="../js/data/util.js"></script>
+
+
+
+
+<!-- 搜索框 -->
+
+<script src='../js/min/stopExecutionOnTimeout.js?t=1'></script>
+<script src='../js/min/snap.svg-min.js'></script>
+</html>

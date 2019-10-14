@@ -2,5 +2,30 @@
 <project version="4">
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/CnkiAnalysis" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CnkiAnalysis/src/main/java/com/cnki/njit/crawl/Controller/DataController.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/CnkiAnalysis/src/main/java/com/cnki/njit/crawl/Controller/KeywordController.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/CnkiAnalysis/src/main/java/com/cnki/njit/crawl/Controller/MapDataController.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/CnkiAnalysis/src/main/java/com/cnki/njit/crawl/Controller/PageController.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/CnkiAnalysis/src/main/java/com/cnki/njit/crawl/Controller/UserController.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/CnkiAnalysis/src/main/java/com/cnki/njit/crawl/Crawl/HttpConnectionManager.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/CnkiAnalysis/src/main/java/com/cnki/njit/crawl/Crawl/HttpCrawl.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/CnkiAnalysis/src/main/java/com/cnki/njit/crawl/Util/AjaxResponse.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/CnkiAnalysis/src/main/java/com/cnki/njit/crawl/Util/ConvertUtil.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/CnkiAnalysis/src/main/java/com/cnki/njit/crawl/Util/HeapSort.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/CnkiAnalysis/src/main/java/com/cnki/njit/crawl/Util/HttpUtil.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/CnkiAnalysis/src/main/java/com/cnki/njit/crawl/Util/MapDataUtil.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/CnkiAnalysis/src/main/java/struct/AutoComplete.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/CnkiAnalysis/src/main/java/struct/DataField.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/CnkiAnalysis/src/main/java/struct/KeywordsAutocomplete.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/CnkiAnalysis/src/main/java/struct/TernaryNode.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/CnkiAnalysis/src/main/java/struct/TernarySearchTree.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/CnkiAnalysis/src/main/resources/static/css" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/CnkiAnalysis/src/main/resources/static/fonts" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/CnkiAnalysis/src/main/resources/static/img" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/CnkiAnalysis/src/main/resources/static/js" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/CnkiAnalysis/src/main/resources/static/jsp" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/CnkiAnalysis/src/main/resources/static/plugins" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/CnkiAnalysis/src/main/resources/templates/data" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/CnkiAnalysis/src/test/java/com/cnki/njit/crawl/Util/KeywordsAutocompleteTest.java" charset="GBK" />
   </component>
 </project>

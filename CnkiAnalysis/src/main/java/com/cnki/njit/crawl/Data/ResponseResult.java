@@ -1,7 +1,7 @@
 package com.cnki.njit.crawl.Data;
 
 
-import com.cnki.njit.Constant.ResponseResultCode;
+import com.cnki.njit.crawl.Constant.ResponseResultCode;
 
 public class ResponseResult {
     private ResponseResultCode code;
